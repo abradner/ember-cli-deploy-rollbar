@@ -47,6 +47,16 @@ module.exports = {
           var captureUncaught = rollbarConfig ? rollbarConfig.captureUncaught : true;
           return !(captureUncaught === false);
         },
+        ignoredMessages: function(context) {
+          var rollbarConfig = context.config.rollbar.rollbarConfig;
+          var ignoredMessages = rollbarConfig ? rollbarConfig.ignoredMessages : '';
+          return ignoredMessages;
+        },
+        reportLevel: function(context) {
+          var rollbarConfig = context.config.rollbar.rollbarConfig;
+          var reportLevel = rollbarConfig ? rollbarConfig.reportLevel : 'debug';
+          return reportLevel;
+        },
         integrateRollbar: true,
         additionalFiles: [],
         rollbarFileURI: 'https://d37gvrvc0wt4s1.cloudfront.net/js/v1.9/rollbar.min.js'
@@ -61,6 +71,8 @@ module.exports = {
             enabled: this.readConfig('enabled'),
             captureUncaught: this.readConfig('captureUncaught'),
             environment: this.readConfig('environment'),
+            ignoredMessages: this.readConfig('ignoredMessages'),
+            reportLevel: this.readConfig('reportLevel'),
             payload: {
               client: {
                 javascript: {
